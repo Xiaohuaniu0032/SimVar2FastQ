@@ -17,7 +17,7 @@ Simulate SNV/InDel at a specific genome position to make Fastq files
 
 `-InsP1`: the left pos where you want to insert a DNA sequence
 
-`-InsP2`: the right pos where you wang to insert a DNA sequence
+`-InsP2`: the right pos where you want to insert a DNA sequence
 
 `-InsLen`: the length of insertion
 
