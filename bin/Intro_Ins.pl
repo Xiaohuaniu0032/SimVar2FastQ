@@ -14,6 +14,7 @@ my $od = dirname $outfile;
 my $log = "$od/sim.log";
 open LOG, ">$log" or die;
 
+my $seq = "";
 open IN, "$infile" or die;
 <IN>;
 while (<IN>){
