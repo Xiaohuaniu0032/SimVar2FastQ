@@ -72,7 +72,8 @@ print O "$cmd\n";
 $cmd = "$samtools index $sample_name\.sort.Ins\.$InsLen\.bam";
 print O "$cmd\n";
 
-`rm $sample_name\.bam`;
+$cmd = "rm $sample_name\.bam";
+print O "$cmd\n";
 
 close O;
 
