@@ -10,7 +10,10 @@ my $in_name = basename $infile;
 #my $outfile = "$od/$in_name\.Ins\.$InsP1\-$InsP2\.Len\.$InsLen";
 
 
-my $seq = "";
+my $od = dirname $outfile;
+my $log = "$od/sim.log";
+open LOG, ">$log" or die;
+
 open IN, "$infile" or die;
 <IN>;
 while (<IN>){
@@ -19,7 +22,7 @@ while (<IN>){
 }
 close IN;
 
-print "origin seq is: $seq\n";
+print LOG "origin seq is: $seq\n";
 
 my $seq_start = (split /\./, $in_name)[1];
 my $seq_end = (split /\./, $in_name)[2];
@@ -46,18 +49,20 @@ for (@InsSeq){
 }
 
 my $len = length($InsSeq);
-print "ins seq is $InsSeq (len:$len)\n";
+print LOG "ins seq is $InsSeq (len:$len)\n";
 
 my $left_len = $InsP1 - $seq_start + 1;
 my $left_seq = substr($seq,0,$left_len);
 my $right_seq = substr($seq,$left_len);
 my $newseq = $left_seq.$InsSeq.$right_seq;
 
-print "new seq is: $newseq\n";
+print LOG "new seq is: $newseq\n";
+close LOG;
 
 open O, ">$outfile" or die;
 print O "$newseq\n";
 close O;
+
 
 
 

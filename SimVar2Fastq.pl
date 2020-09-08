@@ -63,14 +63,16 @@ print O "perl $Bin/bin/SimIns.pl -in $outfile -n $sample_name -od $outdir\n";
 my $r1 = "$outdir/$sample_name\.R1.fastq";
 my $r2 = "$outdir/$sample_name\.R2.fastq";
 
-my $cmd = "bwa mem -R \"\@RG\\tID\:$sample_name\\tSM\:$sample_name\\tPL\:illumina\" $fa $r1 $r2 \| $samtools view -b -o $sample_name\.bam -";
+my $cmd = "bwa mem -M -R \"\@RG\\tID\:$sample_name\\tSM\:$sample_name\\tPL\:illumina\" $fa $r1 $r2 \| $samtools view -b -o $sample_name\.bam -";
 print O "$cmd\n";
 
-$cmd = "$samtools sort $sample_name\.bam -o $sample_name\.sort.bam";
+$cmd = "$samtools sort $sample_name\.bam -o $sample_name\.sort.Ins\.$InsLen\.bam";
 print O "$cmd\n";
 
-$cmd = "$samtools index $sample_name\.sort.bam";
+$cmd = "$samtools index $sample_name\.sort.Ins\.$InsLen\.bam";
 print O "$cmd\n";
+
+`rm $sample_name\.bam`;
 
 close O;
 
