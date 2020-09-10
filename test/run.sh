@@ -1,1 +1,0 @@
-perl ../SimVar2Fastq.pl -fa /data1/database/b37/human_g1k_v37.fasta -r 13:28608000-28608500 -samtools /home/fulongfei/miniconda3/bin/samtools -name test_sample -InsP1 28608250 -InsP2 28608251 -InsLen 30 -od $PWD

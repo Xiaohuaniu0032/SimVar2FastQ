@@ -1,7 +1,0 @@
-./test/13.28608000.28608500.fa
-./test/13.28608000.28608500.fa.Ins.28608250-28608251.Len.30
-./test/sim.log
-./test/*.fastq
-./test/*.bam
-./test/*.bam.bai
-./test/*.SimVar2Fastq.sh
