@@ -21,7 +21,7 @@ Simulate SNV/InDel at a specific genome position to make Fastq files
 
 `-InsLen`: the length of insertion
 
-`-vaf`: mutant allel fraction
+`-vaf`: mutant allele fraction
 
 `-minlen`: the least number of bases that the fragment must overlap with the ins position. default: 5(bp)
 
