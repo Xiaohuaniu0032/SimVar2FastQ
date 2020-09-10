@@ -2,7 +2,7 @@
 Simulate SNV/InDel at a specific genome position to make Fastq files
 
 ## Usage
-`perl SimVar2Fastq.pl -fa /path/to/*.fasta -r 13:28608000-28608500 -samtools /path/to/samtools -name test_sample -InsP1 28608250 -InsP2 28608251 -InsLen 30 -od /path/to/outdir`
+`perl SimVar2Fastq.pl -fa /path/to/*.fasta -r 13:28608000-28609000 -samtools /path/to/samtools -name test_sample -InsP1 28608500 -InsP2 28608501 -InsLen 30 -vaf 0.2 -minlen 5 -N 1000 -rl 150 -fl 260 -od /path/to/outdir`
 
 > at present, only support Ins type. SNV and Del modules have not been implemented. 
 
@@ -21,6 +21,10 @@ Simulate SNV/InDel at a specific genome position to make Fastq files
 
 `-InsLen`: the length of insertion
 
+`-vaf`: mutant allel fraction
+
+`-minlen`: the least number of bases that the fragment must overlap with the ins position. default: 5(bp)
+
 `-N`: how many reads you want to gererate. dafault: 5000
 
 `-rl`: read length. default: 150
@@ -36,25 +40,25 @@ Simulate SNV/InDel at a specific genome position to make Fastq files
 after running step2, you will get the following files:
 
 ```
--rw-rw-r-- 1 fulongfei fulongfei     532 9月   4 16:02 13.28608000.28608500.fa
--rw-rw-r-- 1 fulongfei fulongfei     532 9月   4 16:02 13.28608000.28608500.fa.Ins.28608250-28608251.Len.30
--rw-rw-r-- 1 fulongfei fulongfei     212 9月   4 16:02 run.sh
--rw-rw-r-- 1 fulongfei fulongfei  271062 9月   4 16:02 test_sample.bam
--rw-rw-r-- 1 fulongfei fulongfei 1578893 9月   4 16:02 test_sample.R1.fastq
--rw-rw-r-- 1 fulongfei fulongfei 1578893 9月   4 16:02 test_sample.R2.fastq
--rw-rw-r-- 1 fulongfei fulongfei    1219 9月   4 16:02 test_sample.SimVar2Fastq.sh
--rw-rw-r-- 1 fulongfei fulongfei  101251 9月   4 16:02 test_sample.sort.bam
--rw-rw-r-- 1 fulongfei fulongfei   14728 9月   4 16:02 test_sample.sort.bam.bai
+-rw-r--r--  1 lffu  staff   2.1K  9 10 15:12 ins.log
+-rw-r--r--  1 lffu  staff   248B  9 10 15:12 run.sh
+-rw-r--r--  1 lffu  staff   3.1K  9 10 15:12 sim.log
+-rw-r--r--  1 lffu  staff   308K  9 10 15:12 test.R1.fastq
+-rw-r--r--  1 lffu  staff   308K  9 10 15:12 test.R2.fastq
+-rw-r--r--  1 lffu  staff   1.0K  9 10 15:12 test.SimVar2Fastq.sh
+-rw-r--r--  1 lffu  staff    27K  9 10 15:12 test.sort.Ins.30.bam
+-rw-r--r--  1 lffu  staff    14K  9 10 15:12 test.sort.Ins.30.bam.bai
 ```
 
 ### File content specification
 1. `run.sh` is the main shell
 2. `test_sample.SimVar2Fastq.sh` is the generated file after runing `run.sh`
-3. `13.28608000.28608500.fa` this file contain the DNA sequence you want to extract (-r arg)
-4. `13.28608000.28608500.fa.Ins.28608250-28608251.Len.30` this file contain the new DNA sequence (add the inserted seq into the original seq). `Ins` means this file is a Insertion type, `28608250-28608251` means you want to insert a seq into this position, `Len` stand for length, `30` means the inserted seq is 30bp
-5. `test_sample.R1.fastq` and `test_sample.R2.fastq` are the generated PE fastq files, based on above new DNA sequence
-6. `test_sample.bam` is the origin unsorted bam
-7. `test_sample.sort.bam` is the sorted bam
+3. `ins.log`: contain insertion info. this file is created by `/SimVar2Fastq/bin/makeInsSeq.pl` and was used by `/SimVar2Fastq/bin/SimIns.pl`
+4. `sim.log`: contain insertion info and new ref/alt seq. this file is created by `/SimVar2Fastq/bin/SimIns.pl` and was used to check the results.
+5. `test.R1.fastq`: simulated read1 fastq file
+6. 	`test.R2.fastq`: simulated read2 fastq file
+7. `test.sort.Ins.30.bam`: aligned bam file
+8. `test.sort.Ins.30.bam.bai`: indexed bam file
 
 
 ### Notes
