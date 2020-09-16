@@ -1,0 +1,6 @@
+perl /data1/workdir/fulongfei/git_repo/SimVar2Fastq/bin/makeTandemDupSeq.pl -fa /data1/database/b37/human_g1k_v37.fasta -reg 13:28608000-28609000 -samtools /home/fulongfei/miniconda3/bin/samtools -dupStart 28608500 -dupLen 50 -repTimes 1 -outdir /home/fulongfei/workdir/git_repo/SimVar2Fastq/test
+perl /data1/workdir/fulongfei/git_repo/SimVar2Fastq/bin/SimTandemDup.pl -in /home/fulongfei/workdir/git_repo/SimVar2Fastq/test/tandemDup.log -n test -vaf 0.2 -num 5000 -rlen 150 -flen 260 -outdir /home/fulongfei/workdir/git_repo/SimVar2Fastq/test
+bwa mem -M -R "@RG\tID:test\tSM:test\tPL:illumina" /data1/database/b37/human_g1k_v37.fasta /home/fulongfei/workdir/git_repo/SimVar2Fastq/test/test.R1.fastq /home/fulongfei/workdir/git_repo/SimVar2Fastq/test/test.R2.fastq | /home/fulongfei/miniconda3/bin/samtools view -b -o /home/fulongfei/workdir/git_repo/SimVar2Fastq/test/test.bam -
+/home/fulongfei/miniconda3/bin/samtools sort /home/fulongfei/workdir/git_repo/SimVar2Fastq/test/test.bam -o /home/fulongfei/workdir/git_repo/SimVar2Fastq/test/test.sort.TD.50.bam
+/home/fulongfei/miniconda3/bin/samtools index /home/fulongfei/workdir/git_repo/SimVar2Fastq/test/test.sort.TD.50.bam
+rm /home/fulongfei/workdir/git_repo/SimVar2Fastq/test/test.bam
